@@ -419,6 +419,25 @@ const useStyles = makeStyles({
       padding: 20,
     },
   },
+  uploadAvatarForm: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  uploadAvatarInput: {
+    display: 'none',
+  },
+  uploadAvatarLabel: {
+    backgroundColor: 'rgba(0, 0, 0, 0.09)',
+    border: '1px solid rgba(245, 0, 87, 1)',
+    borderRadius: 5,
+    marginRight: 5,
+    padding: '6px 12px',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    },
+  },
 });
 
 export default useStyles;

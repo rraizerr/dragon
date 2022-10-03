@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../Header';
 import { auth } from '../../../../common/firebaseApp';
 import useStyles from '../../../styles';
+import defoultAvatar from '../../../../img/defoultAvatar.jpg';
 
 const UserProfile: React.FC = () => {
   const classes = useStyles();
@@ -17,11 +18,7 @@ const UserProfile: React.FC = () => {
           <>
             <img
               className={classes.avatar}
-              src={
-                user.photoURL
-                  ? user.photoURL
-                  : 'https://zn.ua/img/article/4626/2_main.jpg'
-              }
+              src={user.photoURL ? user.photoURL : defoultAvatar}
               alt="UserAvatar"
             />
             <p>
