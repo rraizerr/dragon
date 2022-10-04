@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ClearIcon from '@mui/icons-material/Clear';
 import Header from '../../Header';
 import { auth, storage } from '../../../../common/firebaseApp';
 import useStyles from '../../../styles';
@@ -22,6 +23,7 @@ const EditUserProfile: React.FC = (): any => {
   const [uploading, setUploading] = useState(false);
   const [photoURL, setProtoURL] = useState(defoultAvatar);
   const [upliadBtnDisabled, setUpliadBtnDisabled] = useState(true);
+  const [deleteBtn, setDeleteBtn] = useState('none');
   const message = {
     success: 'Data changed successfully',
     error: 'Data loading error. Please try again later',
@@ -113,6 +115,7 @@ const EditUserProfile: React.FC = (): any => {
   useEffect(() => {
     if (user?.photoURL) {
       setProtoURL(user.photoURL);
+      setDeleteBtn('block');
     }
   }, [user]);
 
@@ -142,6 +145,7 @@ const EditUserProfile: React.FC = (): any => {
               .then(() => {
                 setBbuttonDisabled(true);
                 setUploading(false);
+                setDeleteBtn('block');
               })
               .catch((err) => setError(err.message));
           });
@@ -155,6 +159,16 @@ const EditUserProfile: React.FC = (): any => {
     uploadFiles(file);
   };
 
+  const handleDeleteAvatar = () => {
+    user
+      ?.updateProfile({ photoURL: null })
+      .then(() => {
+        setDeleteBtn('none');
+        setProtoURL(defoultAvatar);
+      })
+      .catch((err) => setError(err.message));
+  };
+
   return (
     <div className={classes.wrapper}>
       <Header />
@@ -162,11 +176,22 @@ const EditUserProfile: React.FC = (): any => {
         <h2 className={classes.name}>Edit Profile</h2>
         {user !== null ? (
           <>
-            <img
-              className={classes.avatar}
-              src={user.photoURL ? user.photoURL : photoURL}
-              alt="UserAvatar"
-            />
+            <div className={classes.profileIgWrapper}>
+              <img
+                className={classes.avatar}
+                src={user.photoURL ? user.photoURL : photoURL}
+                alt="UserAvatar"
+              />
+              <button
+                onClick={handleDeleteAvatar}
+                style={{ display: `${deleteBtn}` }}
+                className={classes.deleteAvatarBtn}
+                type="button"
+                title="Delete avatar"
+              >
+                <ClearIcon />
+              </button>
+            </div>
             {uploading ? <p>Upload progress {uploadProgress}%</p> : null}
             <form className={classes.uploadAvatarForm} onSubmit={formHandler}>
               <label

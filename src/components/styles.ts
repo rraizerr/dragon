@@ -438,6 +438,24 @@ const useStyles = makeStyles({
       backgroundColor: 'rgba(0, 0, 0, 0.15)',
     },
   },
+  profileIgWrapper: {
+    position: 'relative',
+  },
+  deleteAvatarBtn: {
+    display: 'block',
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    color: '#f50057',
+    border: 'none',
+    fontSize: 15,
+    borderRadius: 5,
+    backgroundColor: 'transparent',
+    '&:hover': {
+      transform: 'rotate(90deg)',
+      transition: 'all .2s ease-in-out',
+    },
+  },
 });
 
 export default useStyles;
